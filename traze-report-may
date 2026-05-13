@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte de Estrategias de Marketing — Traze LATAM</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --traze-dark: #050a1f;
+    --traze-blue: #0a1aff;
+    --traze-mid: #1a2a8a;
+    --traze-green: #4aff6e;
+    --traze-white: #f0f2ff;
+    --traze-muted: #8892cc;
+    --card-bg: rgba(10,26,255,0.06);
+    --card-border: rgba(10,26,255,0.18);
+    --tag-bg: rgba(74,255,110,0.12);
+    --tag-text: #4aff6e;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--traze-dark);
+    color: var(--traze-white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 80px 72px;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 80vw;
+    height: 80vw;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(10,26,255,0.45) 0%, rgba(5,10,31,0) 70%);
+    pointer-events: none;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--traze-blue), transparent);
+  }
+
+  .header-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--traze-green);
+    margin-bottom: 28px;
+  }
+
+  .header-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(42px, 7vw, 88px);
+    line-height: 1.0;
+    max-width: 820px;
+    letter-spacing: -0.02em;
+  }
+  .header-title em {
+    font-style: italic;
+    color: var(--traze-green);
+  }
+
+  .header-subtitle {
+    margin-top: 32px;
+    font-size: 17px;
+    color: var(--traze-muted);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .header-meta {
+    margin-top: 56px;
+    display: flex;
+    gap: 48px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--traze-muted);
+  }
+  .header-meta strong { color: var(--traze-white); display: block; font-size: 13px; margin-bottom: 4px; }
+
+  /* ── MAIN LAYOUT ── */
+  main { position: relative; z-index: 1; }
+
+  .section {
+    padding: 96px 72px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--traze-green);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 4vw, 52px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 48px;
+  }
+
+  /* ── CONTEXT SECTION ── */
+  .context-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 64px;
+  }
+  .context-cell {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 36px;
+  }
+  .context-cell:first-child { grid-column: 1 / -1; background: rgba(74,255,110,0.05); border-color: rgba(74,255,110,0.25); }
+
+  .context-cell .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--traze-muted);
+    margin-bottom: 12px;
+  }
+  .context-cell .value {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--traze-white);
+  }
+  .context-cell .big {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px;
+    color: var(--traze-green);
+    display: block;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  /* ── PAIN POINTS ── */
+  .pain-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 40px;
+  }
+  .pain-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .pain-card:hover { border-color: rgba(10,26,255,0.5); }
+  .pain-card::before {
+    content: attr(data-num);
+    position: absolute;
+    top: -10px;
+    right: 24px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 80px;
+    color: rgba(255,255,255,0.03);
+    pointer-events: none;
+  }
+  .pain-card .pain-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--traze-muted);
+    margin-bottom: 10px;
+  }
+  .pain-card p { font-size: 14px; line-height: 1.6; color: #c0c8f0; }
+
+  /* ── COMPETITOR CARDS ── */
+  .competitor-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+  .competitor-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 40px;
+    transition: background 0.3s;
+    position: relative;
+  }
+  .competitor-card:hover { background: rgba(10,26,255,0.1); }
+
+  .comp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .comp-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+  }
+  .comp-tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    padding: 4px 10px;
+    text-transform: uppercase;
+  }
+  .comp-country {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--traze-muted);
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+  .comp-section { margin-bottom: 20px; }
+  .comp-section .cs-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--traze-blue);
+    filter: brightness(2);
+    margin-bottom: 8px;
+  }
+  .comp-section p { font-size: 14px; color: #c0c8f0; line-height: 1.6; }
+
+  .insight-box {
+    margin-top: 24px;
+    padding: 18px 20px;
+    background: rgba(74,255,110,0.06);
+    border-left: 3px solid var(--traze-green);
+  }
+  .insight-box .ib-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--traze-green);
+    margin-bottom: 6px;
+  }
+  .insight-box p { font-size: 13px; color: var(--traze-white); line-height: 1.55; }
+
+  /* ── TRENDS TABLE ── */
+  .trends-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 40px;
+  }
+  .trends-table th {
+    text-align: left;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--traze-muted);
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .trends-table td {
+    padding: 18px 20px;
+    font-size: 14px;
+    color: #c0c8f0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: top;
+  }
+  .trends-table tr:hover td { background: rgba(10,26,255,0.06); }
+  .trends-table td:first-child { color: var(--traze-white); font-weight: 500; }
+  .trend-pill {
+    display: inline-block;
+    background: rgba(10,26,255,0.2);
+    border: 1px solid rgba(10,26,255,0.4);
+    color: #a0b0ff;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    padding: 2px 8px;
+    letter-spacing: 0.1em;
+    margin: 2px 2px 2px 0;
+  }
+
+  /* ── RECOMMENDATIONS ── */
+  .recs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    margin-top: 40px;
+  }
+  .rec-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 36px;
+    position: relative;
+  }
+  .rec-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 64px;
+    color: rgba(10,26,255,0.25);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .rec-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--traze-white);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .rec-desc { font-size: 14px; color: #a0aae0; line-height: 1.65; }
+  .rec-tag {
+    margin-top: 20px;
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    padding: 3px 10px;
+    text-transform: uppercase;
+  }
+
+  /* ── PLATFORM PRIORITIES ── */
+  .platform-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-top: 40px;
+  }
+  .platform-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .platform-card .p-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .platform-card .p-priority {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    margin-bottom: 14px;
+    display: inline-block;
+  }
+  .p-priority.high { background: rgba(74,255,110,0.12); color: var(--traze-green); }
+  .p-priority.med { background: rgba(10,26,255,0.2); color: #a0b0ff; }
+  .platform-card .p-desc { font-size: 12px; color: var(--traze-muted); line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 60px 72px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-brand {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    letter-spacing: -0.01em;
+  }
+  .footer-brand span { color: var(--traze-green); }
+  .footer-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--traze-muted);
+    text-align: right;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(10,26,255,0.4), transparent);
+    margin: 0;
+  }
+
+  /* ── QUOTE BLOCK ── */
+  .pull-quote {
+    margin: 56px 0;
+    padding: 40px 56px;
+    background: linear-gradient(135deg, rgba(10,26,255,0.1), rgba(74,255,110,0.04));
+    border: 1px solid rgba(10,26,255,0.25);
+    position: relative;
+  }
+  .pull-quote::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: 40px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 80px;
+    color: var(--traze-blue);
+    line-height: 1;
+  }
+  .pull-quote p {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(18px, 2.5vw, 26px);
+    line-height: 1.4;
+    color: var(--traze-white);
+    letter-spacing: -0.01em;
+  }
+  .pull-quote .pq-source {
+    margin-top: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--traze-muted);
+    text-transform: uppercase;
+  }
+
+  /* ── FADE IN ANIMATION ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up {
+    animation: fadeUp 0.7s ease forwards;
+    opacity: 0;
+  }
+  .fade-up:nth-child(1) { animation-delay: 0.1s; }
+  .fade-up:nth-child(2) { animation-delay: 0.2s; }
+  .fade-up:nth-child(3) { animation-delay: 0.3s; }
+  .fade-up:nth-child(4) { animation-delay: 0.4s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    header, .section, footer { padding: 56px 32px; }
+    .context-grid, .pain-row, .competitor-grid, .recs-grid, .platform-row {
+      grid-template-columns: 1fr;
+    }
+    .context-cell:first-child { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════ HEADER ════════════════════════════════════ -->
+<header>
+  <div class="header-eyebrow">Traze LATAM · Reporte Estratégico · Mayo 2026</div>
+  <h1 class="header-title fade-up">Cómo compiten<br>fintech y brokers<br>en <em>LATAM.</em></h1>
+  <p class="header-subtitle fade-up">Análisis de estrategias de marketing y comunicación de los principales actores del mercado financiero en América Latina — y qué puede aprender Traze de cada uno.</p>
+  <div class="header-meta fade-up">
+    <div><strong>Audiencias</strong>Traders · IBs · Influencers</div>
+    <div><strong>Mercados</strong>MX · CL · CO · AR · PE</div>
+    <div><strong>Propósito</strong>Benchmarking estratégico</div>
+    <div><strong>Documento</strong>Uso interno Traze</div>
+  </div>
+</header>
+
+<main>
+
+<!-- ════════════════════════════════════ CONTEXTO ════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">01 · Contexto del mercado</div>
+  <h2 class="section-title">El problema de fondo<br>en LATAM.</h2>
+
+  <div class="context-grid">
+    <div class="context-cell">
+      <div class="label">El diagnóstico clave</div>
+      <div class="value">
+        El mercado LATAM presenta una demanda creciente por trading e inversión, impulsada por mayor penetración de internet, educación financiera en expansión y búsqueda de alternativas al sistema bancario tradicional. Sin embargo, convive con un nivel crítico de desconfianza hacia brokers — resultado de años de malas prácticas, fraudes, bonos engañosos y promesas incumplidas de rentabilidad. <strong>La oportunidad real no está en competir por volumen, sino en posicionarse como el actor más confiable del ecosistema.</strong>
+      </div>
+    </div>
+    <div class="context-cell">
+      <div class="label">Crecimiento digital LATAM</div>
+      <span class="big">$25.1B</span>
+      <div class="value">inversión en publicidad digital en LATAM durante 2025, un crecimiento del 67% en dos años. El digital ya supera al gasto en televisión.</div>
+    </div>
+    <div class="context-cell">
+      <div class="label">Plataformas dominantes</div>
+      <div class="value">Instagram lidera entre 16-37 años (especialmente Argentina y Chile). Facebook domina entre 38+ y en Colombia, México y Perú. TikTok crece aceleradamente entre Gen Z. YouTube tiene alcance transversal y es clave para credibilidad.</div>
+    </div>
+  </div>
+
+  <div class="section-label">Dolores del mercado actual</div>
+  <div class="pain-row">
+    <div class="pain-card" data-num="1">
+      <div class="pain-title">Alta desconfianza</div>
+      <p>Historial regional de fraudes, brokers no regulados y promesas falsas de rentabilidad generan un trader educado pero escéptico. La regulación no se comunica bien ni se traduce al contexto local.</p>
+    </div>
+    <div class="pain-card" data-num="2">
+      <div class="pain-title">Leads de baja calidad</div>
+      <p>El modelo CPA masivo y los bonos de bienvenida atraen usuarios especulativos con alta rotación. Los brokers invierten en adquirir clientes que no retienen, generando un ciclo de marketing caro e ineficiente.</p>
+    </div>
+    <div class="pain-card" data-num="3">
+      <div class="pain-title">Saturación de mensajes</div>
+      <p>Todos hablan de spreads bajos, velocidad de ejecución y "la mejor plataforma". Nadie habla de protección real del capital, de acompañamiento o de relaciones de largo plazo. El espacio narrativo está libre.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ COMPETIDORES ════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">02 · Análisis por actor</div>
+  <h2 class="section-title">Qué hace cada uno<br>y por qué importa.</h2>
+
+  <div class="competitor-grid">
+
+    <!-- FINTUAL -->
+    <div class="competitor-card">
+      <div class="comp-header">
+        <div>
+          <div class="comp-name">Fintual</div>
+          <div class="comp-country">Chile · México · Colombia</div>
+        </div>
+        <div>
+          <div class="comp-tag">Fintech · Inversión</div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="cs-label">Posicionamiento</div>
+        <p>Inversión accesible para millennials y Gen Z. Se posicionan como el broker que "habla como humano" en un sector lleno de tecnicismos. Han hecho de la simplicidad una ventaja competitiva real.</p>
+      </div>
+      <div class="comp-section">
+        <div class="cs-label">Estrategia de contenido</div>
+        <p>Blog educativo constante con tono directo y a veces humorístico. Infografías en Instagram explicando conceptos financieros complejos en lenguaje cotidiano. Webinars de educación financiera para audiencias principiantes. Email marketing personalizado según comportamiento del usuario.</p>
+      </div>
+      <div class="comp-section">
+        <div class="cs-label">Canales prioritarios</div>
+        <p><span class="trend-pill">Instagram</span><span class="trend-pill">Blog SEO</span><span class="trend-pill">Email</span><span class="trend-pill">LinkedIn</span></p>
+      </div>
+      <div class="comp-section">
+        <div class="cs-label">Diferencial de marketing</div>
+        <p>No venden rendimiento: venden accesibilidad y claridad. El copy nunca es agresivo. El onboarding digital es extremadamente fluido. Generan confianza siendo radicalmente transparentes sobre cómo funcionan sus fondos.</p>
+      </div>
+      <div class="insight-box">
+        <div class="ib-label">Aprendizaje para Traze</div>
+        <p>La educación como eje principal de contenido no es opcional, es el motor de adquisición. Simplificar el lenguaje financiero sin perder rigor genera credibilidad. Traze puede replicar este modelo aplicado a trading y CFDs con el Triángulo de Protección como narrativa central.</p>
+      </div>
+    </div>
+
+    <!-- BUDA.COM -->
+    <div class="competitor-card">
+      <div class="comp-header">
+        <div>
+          <div class="comp-name">Buda.com</div>
+          <div class="comp-country">Chile · Colombia · Perú · Argentina</div>
+        </div>
+        <div>
+          <div class="comp-tag">Fintech · Cripto</div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="cs-label">Posicionamiento</div>
+        <p>Plataforma líder de criptomonedas en el cono sur. Construyeron reputación sobre dos pilares: seguridad real de fondos y facilidad de uso. No compiten en precio: compiten en confianza y experiencia.</p>
+      </div>
+      <div class="comp-section">
+        <div class="cs-label">Estrategia de contenido</div>
+        <p>Contenido educativo centrado en cripto para usuarios no técnicos. Comunicación muy activa durante eventos de mercado volátiles. Fuerte presencia en redes con soporte visual claro. Blog con artículos explicativos sobre blockchain, wallets y regulación local.</p>
+      </div>
+      <div class="comp-section">
+        <div class="cs-label">Canales prioritarios</div>
+        <p><span class="trend-pill">Twitter/X</span><span class="trend-pill">Instagram</span><span class="trend-pill">Blog</span><span class="trend-pill">Soporte activo</span></p>
+      </div>
+      <div class="comp-section">
+        <div class="cs-label">Diferencial de marketing</div>
+        <p>Construyen confianza a través de la gestión de comunidad y el soporte visible. Cuando ocurre un evento de mercado disruptivo, publican antes de que les pregunten. Transparency-first en todo momento.</p>
+      </div>
+      <div class="insight-box">
+        <div class="ib-label">Aprendizaje para Traze</div>
+        <p>Anticiparse a la preocupación del usuario es una forma poderosa de generar confianza. En momentos de alta volatilidad (decisiones de la Fed, cisnes negros), Traze debe publicar proactivamente cómo el Triángulo de Protección protege al trader. Esto convierte la volatilidad en contenido de valor.</p>
+      </div>
+    </div>
+
+    <!-- XTB LATAM -->
+    <div class="competitor-card">
+      <div class="comp-header">
+        <div>
+          <div class="comp-name">XTB Latam</div>
+          <div class="comp-country">Chile · Perú · México · Colombia</div>
+        </div>
+        <div>
+          <div class="comp-tag">Broker · CFDs · Forex</div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="cs-label">Posicionamiento</div>
+        <p>Uno de los 5 brokers más grandes del mundo por clientes activos. En LATAM juegan la carta de la escuela: se posicionan como el broker que más enseña. Construyen relación antes de pedir la conversión.</p>
+      </div>
+      <div class="comp-section">
+        <div class="cs-label">Estrategia de contenido</div>
+        <p>Webinars semanales en vivo con analistas locales reconocidos (Ignacio Mieres, Gonzalo Muñoz, Diego Mora). Simulaciones en tiempo real de operaciones. Cursos por niveles con certificación de trader. Análisis de mercado semanal en YouTube. Presencia física en Chile con oficinas y eventos en Santiago.</p>
+      </div>
+      <div class="comp-section">
+        <div class="cs-label">Canales prioritarios</div>
+        <p><span class="trend-pill">YouTube</span><span class="trend-pill">Webinars</span><span class="trend-pill">Facebook</span><span class="trend-pill">Instagram</span><span class="trend-pill">Eventos</span></p>
+      </div>
+      <div class="comp-section">
+        <div class="cs-label">Diferencial de marketing</div>
+        <p>Los analistas son el rostro de la marca. Personas reales con credenciales académicas y experiencia verificable. Esto baja la fricción de desconfianza. El modelo educativo crea un embudo de largo plazo: el usuario aprende, confía y luego opera.</p>
+      </div>
+      <div class="insight-box">
+        <div class="ib-label">Aprendizaje para Traze</div>
+        <p>La humanización es una ventaja competitiva. Traze necesita un rostro humano creíble: un analista o portavoz local por país que genere contenido constante. El modelo de webinars y simulaciones en vivo de XTB es directamente replicable y adaptable al pilar de Acompañamiento Humano de Traze.</p>
+      </div>
+    </div>
+
+    <!-- SOYFOCUS / HAPI -->
+    <div class="competitor-card">
+      <div class="comp-header">
+        <div>
+          <div class="comp-name">SoyFocus / Hapi</div>
+          <div class="comp-country">Colombia · México · LATAM</div>
+        </div>
+        <div>
+          <div class="comp-tag">Fintech · Acciones</div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="cs-label">Posicionamiento</div>
+        <p>Plataformas con enfoque local-first: lanzan mensajes orientados a metas personales y accesibilidad, no a rendimiento técnico. Su propuesta es "invertir sin que sea complicado". Muy enfocadas en onboarding fluido y atención al cliente en español.</p>
+      </div>
+      <div class="comp-section">
+        <div class="cs-label">Estrategia de contenido</div>
+        <p>UGC (contenido generado por usuarios) como prueba social. Testimonios reales de clientes con lenguaje cotidiano. Métodos de pago locales destacados como diferencial (Nequi, Yape, PSE, Webpay). Proceso de apertura de cuenta comunicado como ventaja competitiva.</p>
+      </div>
+      <div class="comp-section">
+        <div class="cs-label">Canales prioritarios</div>
+        <p><span class="trend-pill">Instagram</span><span class="trend-pill">TikTok</span><span class="trend-pill">Referidos</span><span class="trend-pill">WhatsApp</span></p>
+      </div>
+      <div class="comp-section">
+        <div class="cs-label">Diferencial de marketing</div>
+        <p>Hacen del proceso de registro y depósito un activo comunicacional. "Abre tu cuenta en 5 minutos con tu billetera digital" es una promesa de conversión, no solo una característica técnica. La experiencia del onboarding se comunica antes de que el usuario la viva.</p>
+      </div>
+      <div class="insight-box">
+        <div class="ib-label">Aprendizaje para Traze</div>
+        <p>Los métodos de pago locales de Traze (Khipu, Nequi, Yape, Webpay, entre otros) son un activo de marketing subutilizado. Comunicarlos explícitamente por país reduce la fricción perceptual del depósito y es prueba directa del compromiso local de Traze. Este mensaje puede usarse en Meta Ads segmentados por país.</p>
+      </div>
+    </div>
+
+  </div><!-- /competitor-grid -->
+</section>
+
+<!-- ════════════════════════════════════ PULL QUOTE ════════════════════════════════════ -->
+<div class="divider"></div>
+<div class="section" style="padding-top: 72px; padding-bottom: 72px;">
+  <div class="pull-quote">
+    <p>En Latinoamérica, la confianza es el factor más decisivo para que un trader elija un broker. El historial de fraudes y malas prácticas en la región hace que los usuarios valoren especialmente la transparencia y el cumplimiento normativo.</p>
+    <div class="pq-source">Fuente: B2Broker · Estrategias de Marketing para Brokers Forex en LATAM · 2024</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════ TENDENCIAS ════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">03 · Tendencias del ecosistema</div>
+  <h2 class="section-title">Lo que está<br>cambiando ahora.</h2>
+
+  <table class="trends-table">
+    <thead>
+      <tr>
+        <th>Tendencia</th>
+        <th>Qué significa</th>
+        <th>Relevancia para Traze</th>
+        <th>Tags</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>De-influencing</td>
+        <td>La confianza en influencers cayó de 58% (2022) a 38% (2024). Los usuarios prefieren reseñas de usuarios reales sobre opiniones de creadores pagados.</td>
+        <td>Alta. El modelo de influencer por performance de Traze debe enfocarse en micro-influencers con comunidades de nicho, no en grandes nombres. Los testimonios reales de traders valen más que el celebrity endorsement.</td>
+        <td><span class="trend-pill">Confianza</span><span class="trend-pill">IBs</span></td>
+      </tr>
+      <tr>
+        <td>Contenido humano-generado (HGC)</td>
+        <td>Los millennials quieren contenido creado por humanos reales, no por IA. El 44% ya ha dejado de seguir marcas cuyo contenido parece generado por IA.</td>
+        <td>Alta. El pilar de Acompañamiento Humano de Traze es una ventaja competitiva directa. Mostrar personas reales del equipo, analistas con nombre y cara, genera diferenciación inmediata frente a brokers que publican solo gráficos genéricos.</td>
+        <td><span class="trend-pill">Contenido</span><span class="trend-pill">Traders</span></td>
+      </tr>
+      <tr>
+        <td>Social commerce como buscador</td>
+        <td>Facebook (31%), YouTube (29%) e Instagram (23%) ya son plataformas de descubrimiento financiero. Los usuarios buscan información sobre brokers en redes antes de ir al buscador.</td>
+        <td>Alta. Traze necesita aparecer en estas búsquedas sociales con contenido educativo indexable. Los Reels explicando el Triángulo de Protección deben usar palabras clave que los traders buscan ("broker regulado", "protección de fondos", "cómo depositar en trading").</td>
+        <td><span class="trend-pill">SEO Social</span><span class="trend-pill">Reach</span></td>
+      </tr>
+      <tr>
+        <td>Plataformas de comunidad emergentes</td>
+        <td>El 63% de los millennials planea usar Reddit en los próximos meses. Comunidades de nicho en plataformas de texto están ganando tracción para decisiones financieras.</td>
+        <td>Media. Oportunidad de presencia en comunidades de traders en Reddit, Telegram y Discord como canal de construcción de confianza para IBs y traders avanzados. No reemplaza Instagram, pero complementa.</td>
+        <td><span class="trend-pill">IBs</span><span class="trend-pill">Comunidad</span></td>
+      </tr>
+      <tr>
+        <td>Inversión digital supera TV</td>
+        <td>El gasto digital en LATAM ya supera al de televisión y llegará a $25.1B USD en 2025. Meta y Google son los principales destinos.</td>
+        <td>Alta. El canal de boost de Meta Ads (Instagram + Facebook) está correctamente priorizado. El CPL en estos canales es optimizable con segmentación por país, edad e interés en finanzas/inversión.</td>
+        <td><span class="trend-pill">Meta Ads</span><span class="trend-pill">Paid</span></td>
+      </tr>
+      <tr>
+        <td>Modelo IB como canal principal</td>
+        <td>En LATAM el programa de Introducing Broker es la forma más escalable de adquirir clientes de calidad, ya que los IBs traen credibilidad de comunidad y reducen la desconfianza inicial.</td>
+        <td>Muy alta. El modelo Rebate de Traze debe ser el activo principal de comunicación hacia IBs. Posicionar el programa como "ingresos por actividad real" vs. el modelo CPA masivo es un diferencial directo del mercado.</td>
+        <td><span class="trend-pill">IBs</span><span class="trend-pill">Rebate</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ════════════════════════════════════ RECOMENDACIONES ════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">04 · Aplicación para Traze</div>
+  <h2 class="section-title">Qué hacer<br>diferente.</h2>
+
+  <div class="recs-grid">
+    <div class="rec-card">
+      <div class="rec-num">01</div>
+      <div class="rec-title">Hacer del Triángulo de Protección el eje narrativo de todo el contenido orgánico</div>
+      <p class="rec-desc">Ningún competidor analizado comunica las tres capas de protección de fondos (saldo negativo + segregación + insolvencia) de forma consistente y simple. Fintual democratiza la inversión; Traze puede democratizar la seguridad en trading. Cada pieza de contenido debe poder conectarse con alguno de los tres vértices del Triángulo.</p>
+      <div class="rec-tag">Traders · 55% del contenido</div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num">02</div>
+      <div class="rec-title">Construir un rostro humano local por cada mercado prioritario</div>
+      <p class="rec-desc">XTB ganó credibilidad en Chile a través de analistas con nombre, credenciales y aparición semanal. Traze necesita un analista o portavoz local en México, Chile, Colombia y Argentina que genere contenido constante: análisis de mercado semanal, respuestas a preguntas de comunidad y apariciones en webinars. La regulación explicada por una persona real de ese país tiene 10x más impacto que un infográfico genérico.</p>
+      <div class="rec-tag">Pilar: Acompañamiento Humano</div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num">03</div>
+      <div class="rec-title">Convertir los métodos de pago locales en contenido de conversión</div>
+      <p class="rec-desc">Traze tiene una cobertura de métodos de pago locales excepcional (Khipu, Nequi, Yape, Webpay, SPEI, PSE, entre otros). Esto no se está comunicando suficientemente como diferencial. Crear piezas de contenido por país mostrando el proceso de depósito paso a paso — con el método más usado en ese mercado — reduce la fricción perceptual y aumenta la conversión de lead a usuario activo.</p>
+      <div class="rec-tag">Conversión · Meta Ads</div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num">04</div>
+      <div class="rec-title">Posicionar el modelo Rebate para IBs como alternativa al CPA masivo</div>
+      <p class="rec-desc">El mercado está saturado de brokers que ofrecen CPA alto pero sin retención. La narrativa para IBs de Traze debe ser: "No te pagamos por traer leads. Te pagamos por construir una comunidad que opera de verdad." El modelo Rebate como ingreso por actividad real, con datos transparentes y relación de largo plazo, es exactamente lo que los IBs de calidad están buscando y no encuentran.</p>
+      <div class="rec-tag">IBs · 30% del contenido</div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num">05</div>
+      <div class="rec-title">Aprovechar la volatilidad de mercado como contenido de confianza, no de alarma</div>
+      <p class="rec-desc">Cuando la Fed anuncia tasas, cuando hay elecciones en LATAM o cuando hay un flash crash, Traze debe ser el primero en publicar — no para explotar el miedo, sino para explicar cómo el Triángulo de Protección protege al trader en ese momento exacto. Buda.com hace esto con cripto. Traze puede hacerlo con Forex y CFDs. El momento de mayor ansiedad del trader es el mejor momento para demostrar confianza.</p>
+      <div class="rec-tag">Contenido reactivo · Calendario editorial</div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num">06</div>
+      <div class="rec-title">Test A/B en Meta Ads con variante directa vs. variante educativa</div>
+      <p class="rec-desc">Para el canal de boost pagado, siempre testear dos ángulos: (A) directa — enfocada en el diferencial regulatorio y la protección de fondos con CTA a registro; (B) educativa — explicando un concepto del Triángulo de Protección con CTA a contenido o lead magnet. Los datos de CTR y CPL decidirán qué ángulo escala. Este modelo genera aprendizaje continuo sobre qué mensaje resuena en cada país.</p>
+      <div class="rec-tag">Meta Ads · CPL · Optimización</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ PLATAFORMAS ════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">05 · Prioridad de canales</div>
+  <h2 class="section-title">Dónde poner<br>la energía.</h2>
+
+  <div class="platform-row">
+    <div class="platform-card">
+      <div class="p-name">Instagram</div>
+      <div class="p-priority high">Prioritario</div>
+      <p class="p-desc">Awareness + educación + confianza. Canal principal de contenido orgánico y boost pagado. Domina en Argentina y Chile entre 16-37 años.</p>
+    </div>
+    <div class="platform-card">
+      <div class="p-name">Facebook</div>
+      <div class="p-priority high">Prioritario</div>
+      <p class="p-desc">Canal de Meta Ads esencial. Dominante en México, Colombia y Perú. Alcance a traders 35+ que son el segmento con más capital para operar.</p>
+    </div>
+    <div class="platform-card">
+      <div class="p-name">YouTube</div>
+      <div class="p-priority high">Prioritario</div>
+      <p class="p-desc">Profundidad y credibilidad. Webinars, análisis de mercado, explicaciones del Triángulo. Contenido que queda indexado y sigue atrayendo leads.</p>
+    </div>
+    <div class="platform-card">
+      <div class="p-name">LinkedIn</div>
+      <div class="p-priority med">Secundario</div>
+      <p class="p-desc">Captación de IBs y partners. Contenido más formal sobre el modelo Rebate, la regulación institucional y el ecosistema Traze para profesionales.</p>
+    </div>
+    <div class="platform-card">
+      <div class="p-name">TikTok</div>
+      <div class="p-priority med">Secundario</div>
+      <p class="p-desc">Alcance y descubrimiento entre Gen Z. Contenido corto educativo sobre conceptos básicos de trading. Canal de awareness, no de conversión directa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ FOOTER ════════════════════════════════════ -->
+<footer>
+  <div class="footer-brand">tra<span>7</span>e</div>
+  <div class="footer-meta">
+    Reporte interno · Mayo 2026<br>
+    Social Media & Marketing Strategy · LATAM<br>
+    Uso exclusivo del equipo Traze
+  </div>
+</footer>
+
+</main>
+</body>
+</html>
